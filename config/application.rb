@@ -29,5 +29,12 @@ module FamilyForeverTrip
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins 'localhost:3000', '127.0.0.1:3000', 'slack.com'
+        resource '*', headers: :any, methods: [:get, :post, :options]
+      end
+    end
   end
 end
