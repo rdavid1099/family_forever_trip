@@ -7,13 +7,15 @@ class Mildred
   }
 
   def self.intro(user = "Deary")
-    current_hour = Time.now.hour
+    current_hour = Time.zone.now.hour
     time_greeting = if current_hour >= 4 && current_hour < 11
       "morning"
     elsif current_hour >= 11 && current_hour < 17
       "afternoon"
-    elsif current_hour >= 17 && current_hour < 4
+    elsif current_hour >= 17 || current_hour < 4
       "evening"
+    else
+      "day"
     end
     "Good #{time_greeting}, #{user}!"
   end
