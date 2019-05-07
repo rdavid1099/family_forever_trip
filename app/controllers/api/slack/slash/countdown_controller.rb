@@ -1,7 +1,7 @@
-class Api::Slack::Slash::CommandsController < Api::ApiController
+class Api::Slack::Slash::CountdownController < Api::ApiController
   include DateHelper
 
-  def countdown
+  def create
     time_left = DateHelper.time_until_vacation
 
     Mildred.new.slack_method(post_message: {
