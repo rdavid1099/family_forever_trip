@@ -48,6 +48,7 @@ class Mildred
       title: opts[:title],
       title_link: opts[:title_link],
       text: opts[:text],
+      fields: opts[:fields],
       image_url: opts[:random_giphy] ? Giphy.random(opts[:random_giphy]) : opts[:image_url],
       thumb_url: opts[:thumb_url],
       footer: opts[:footer],
