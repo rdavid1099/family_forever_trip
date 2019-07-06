@@ -4,10 +4,8 @@ class Api::Slack::Slash::CountdownController < Api::ApiController
   def create
     time_left = DateHelper.time_until_vacation
 
-    Mildred.new.slack_method(post_message: {
+    SlackMsgr.chat(:post_message, {
       channel: params[:channel_id],
-      username: 'Mildred',
-      as_user: 'false',
       text: "#{Mildred.intro("<@#{params[:user_id]}>")} Let's see how much time is left until our big trip!",
       attachments: [
         Mildred.msg_attachment(
@@ -18,6 +16,7 @@ class Api::Slack::Slash::CountdownController < Api::ApiController
         )
       ]
     })
+
     head 200, content_type: "text/html"
   end
 end
