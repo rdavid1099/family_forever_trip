@@ -13,14 +13,20 @@ defmodule FamilyForeverPhoenixWeb.Router do
     plug :accepts, ["json"]
   end
 
+  scope "/api", FamilyForeverPhoenixWeb.Api do
+    pipe_through :api
+
+    scope "/slack", Slack do
+      scope "/slash", Slash do
+        resources "/countdown", CountdownController, only: [:create]
+        resources "/pokedex", PokedexController, only: [:create]
+      end
+    end
+  end
+
   scope "/", FamilyForeverPhoenixWeb do
     pipe_through :browser
 
     get "/", PageController, :index
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", FamilyForeverPhoenixWeb do
-  #   pipe_through :api
-  # end
 end
