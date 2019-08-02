@@ -11,6 +11,7 @@ defmodule FamilyForeverPhoenixWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug FamilyForeverPhoenix.Plugs.AuthenticateSlackToken
   end
 
   scope "/api", FamilyForeverPhoenixWeb.Api do

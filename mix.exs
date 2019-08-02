@@ -20,7 +20,7 @@ defmodule FamilyForeverPhoenix.MixProject do
   def application do
     [
       mod: {FamilyForeverPhoenix.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :calendar]
     ]
   end
 
@@ -42,7 +42,9 @@ defmodule FamilyForeverPhoenix.MixProject do
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
-      {:plug_cowboy, "~> 2.0"}
+      {:plug_cowboy, "~> 2.0"},
+      {:tzdata, "~> 1.0.0"},
+      {:calendar, "~> 0.17.5"}
     ]
   end
 
