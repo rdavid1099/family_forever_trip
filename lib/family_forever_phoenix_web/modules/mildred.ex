@@ -1,4 +1,5 @@
 defmodule FamilyForeverPhoenixWeb.Modules.Mildred do
+  alias FamilyForeverPhoenixWeb.Services.GiphyService
 
   @slash_commands [
     "countdown"
@@ -8,7 +9,7 @@ defmodule FamilyForeverPhoenixWeb.Modules.Mildred do
     "user_id" => "Deary"
   }
 
-  def json_slash_response(%{"respond_to" => respond_to, "channel" => channel} = params)
+  def json_slash_response(%{"respond_to" => respond_to, "channel_name" => channel} = params)
   when respond_to in @slash_commands do
     sanitize_params_with_defaults(params)
       |> response(respond_to)
@@ -25,7 +26,7 @@ defmodule FamilyForeverPhoenixWeb.Modules.Mildred do
       attachments: [%{
         title: "It's The Final Countdown!",
         text: time_left,
-        image_url: "super_fun_giphy",
+        image_url: GiphyService.random_gif("super fun time"),
         ts: ts,
         color: "#ffffff"
       }]
