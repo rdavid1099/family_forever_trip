@@ -34,10 +34,10 @@ defmodule FamilyForeverPhoenixWeb.Services.PokemonService do
       |> Enum.join("/")
   end
 
-  defp latest_flavor_text([%{"language" => %{"name" => name}, "flavor_text" => flavor_text} | tail], lang_name)
+  defp latest_flavor_text([%{"language" => %{"name" => name}, "flavor_text" => flavor_text} | _tail], lang_name)
     when name == lang_name, do: flavor_text
 
-  defp latest_flavor_text([head | tail], lang_name) do
+  defp latest_flavor_text([_head | tail], lang_name) do
     latest_flavor_text(tail, lang_name)
   end
 
