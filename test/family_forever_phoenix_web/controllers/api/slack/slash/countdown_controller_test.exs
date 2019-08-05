@@ -4,7 +4,7 @@ defmodule FamilyForeverPhoenixWeb.Api.Slack.Slash.CountdownControllerTest do
   test "POST /", %{conn: conn} do
     System.put_env("SLACK_APP_TOKEN", "12345")
     params = %{
-      "channel" => "announcements",
+      "channel_name" => "announcements",
       "token" => "12345",
       "user_id" => "tester"
     }
