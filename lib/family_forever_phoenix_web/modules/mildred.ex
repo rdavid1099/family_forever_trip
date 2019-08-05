@@ -9,8 +9,7 @@ defmodule FamilyForeverPhoenixWeb.Modules.Mildred do
   ]
 
   @default_params %{
-    "user_id" => "Deary",
-    "response_type" => "in_channel"
+    "user_id" => "Deary"
   }
 
   defp sanitize_params_with_defaults(params) do
@@ -23,10 +22,8 @@ defmodule FamilyForeverPhoenixWeb.Modules.Mildred do
       |> response(respond_to)
       |> Map.merge(%{
         channel: channel,
-        response_type: params["response_type"],
-        as_user: false,
-        username: "Mildred"
-      })
+        response_type: "in_channel",
+      }, fn _, v1, _ -> v1 end)
   end
 
   defp response(%{"user_id" => user_id}, "countdown") do
@@ -81,7 +78,11 @@ defmodule FamilyForeverPhoenixWeb.Modules.Mildred do
 
   defp custom_messages(query, "pokedex", msg_cb) do
     case PokemonService.call(query) do
-      %{error: true} -> nil
+      %{error: true} -> %{
+        response_type: "ephemeral",
+        text: "I'm sorry, Deary. I couldn't find the Pokémon named `#{query}`",
+        attachments: [%{image_url: "https://media.giphy.com/media/OSvRsgnCeTE0U/giphy.gif"}]
+      }
       data -> PokemonService.format_response(data) |> msg_cb.()
     end
   end
