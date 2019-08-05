@@ -9,7 +9,7 @@ defmodule FamilyForeverPhoenixWeb.Services.GiphyService do
   end
 
   def random_gif(query) do
-    case HTTPoison.get giphy_api_endpoint(query)do
+    case HTTPoison.get giphy_api_endpoint(query) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} -> return_gif_link(body)
       {:error, %HTTPoison.Error{reason: _}} -> "https://media.giphy.com/media/S5JSwmQYHOGMo/giphy.gif"
     end
