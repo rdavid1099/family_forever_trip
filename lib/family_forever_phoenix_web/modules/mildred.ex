@@ -20,7 +20,7 @@ defmodule FamilyForeverPhoenixWeb.Modules.Mildred do
   end
 
   defp response(%{"user_id" => _} = params, "countdown") do
-    [greeting, time_left, ts] = custom_messages(params, "countdown")
+    [greeting, time_left, ts, color] = custom_messages(params, "countdown")
     %{
       text: "#{greeting} Let's see how much time is left until our big trip!",
       attachments: [%{
@@ -28,7 +28,7 @@ defmodule FamilyForeverPhoenixWeb.Modules.Mildred do
         text: time_left,
         image_url: GiphyService.random_gif("super fun time"),
         ts: ts,
-        color: "#ffffff"
+        color: color
       }]
     }
   end
@@ -42,7 +42,8 @@ defmodule FamilyForeverPhoenixWeb.Modules.Mildred do
     [
       greeting_based_on_time(user_id, now),
       time_left(now),
-      DateTime.to_unix(now)
+      DateTime.to_unix(now),
+      generate_random_color
     ]
   end
 
@@ -60,5 +61,16 @@ defmodule FamilyForeverPhoenixWeb.Modules.Mildred do
     minutes = (days * 24 * 60) + ((24 - now.hour) * 60) + now.minute
     seconds = (minutes * 60) + now.second
     "There are just #{days} days left!\nThat's #{minutes} minutes... or #{seconds} seconds!"
+  end
+
+  defp generate_random_color(result \\ "#") do
+    case String.length(result) do
+      length when length < 7 -> generate_random_color(result <> Integer.to_string(Enum.random(0..16), 16))
+      _ -> result
+    end
+  end
+
+  defp generate_random_color() do
+
   end
 end
