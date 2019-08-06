@@ -28,6 +28,6 @@ defmodule FamilyForeverPhoenixWeb.Router do
   scope "/", FamilyForeverPhoenixWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    get "/*path", PageController, :index
   end
 end
