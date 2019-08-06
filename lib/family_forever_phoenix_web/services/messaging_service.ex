@@ -3,15 +3,15 @@ defmodule FamilyForeverPhoenixWeb.Services.MessagingService do
     greeting = case now.hour do
       n when n >= 4 and n < 11 -> "morning"
       n when n >= 11 and n < 17 -> "afternoon"
-      n when n >= 17 and n < 4 -> "evening"
+      _ -> "evening"
     end
     "Well, good #{greeting}, #{if user_id == "Deary", do: user_id, else: "<@#{user_id}>" }!"
   end
 
   def time_left(now) do
     days = Calendar.Date.diff({2019, 10, 5}, {now.year, now.month, now.day})
-    minutes = (days * 24 * 60) + ((24 - now.hour) * 60) + now.minute
-    seconds = (minutes * 60) + now.second
+    minutes = (days * 24 * 60) + ((24 - now.hour) * 60) + (60 - now.minute)
+    seconds = (minutes * 60) + (60 - now.second)
     "There are just #{days} days left!\nThat's #{minutes} minutes... or #{seconds} seconds!"
   end
 
