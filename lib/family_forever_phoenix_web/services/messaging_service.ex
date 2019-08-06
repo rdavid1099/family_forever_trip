@@ -10,8 +10,8 @@ defmodule FamilyForeverPhoenixWeb.Services.MessagingService do
 
   def time_left(now) do
     days = Calendar.Date.diff({2019, 10, 5}, {now.year, now.month, now.day})
-    minutes = (days * 24 * 60) + ((24 - now.hour) * 60) + now.minute
-    seconds = (minutes * 60) + now.second
+    minutes = (days * 24 * 60) + ((24 - now.hour) * 60) + (60 - now.minute)
+    seconds = (minutes * 60) + (60 - now.second)
     "There are just #{days} days left!\nThat's #{minutes} minutes... or #{seconds} seconds!"
   end
 
