@@ -5,7 +5,7 @@ defmodule FamilyForeverPhoenixWeb.Api.Slack.Slash.PokedexView do
 
   def render("create.json", %{params: params}) do
     params
-      |> Map.merge(%{"respond_to" => "pokedex"})
-      |> Mildred.json_slash_response
+    |> Map.merge(%{"respond_to" => "pokedex"})
+    |> Mildred.json_slash_response()
   end
 end

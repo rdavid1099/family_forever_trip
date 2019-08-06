@@ -3,6 +3,6 @@ defmodule FamilyForeverPhoenixWeb.PageControllerTest do
 
   test "GET /", %{conn: conn} do
     conn = get(conn, "/")
-    assert html_response(conn, 200) =~ "Under Construction"
+    assert html_response(conn, 200) =~ "<div id=\"react-app\"></div>"
   end
 end

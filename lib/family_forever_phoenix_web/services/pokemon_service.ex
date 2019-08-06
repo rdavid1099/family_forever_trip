@@ -2,17 +2,17 @@ defmodule FamilyForeverPhoenixWeb.Services.PokemonService do
   alias FamilyForeverPhoenixWeb.Services.FetcherService
 
   @pokemon_color %{
-      "black" => "#000000",
-      "blue" => "#3A93FF",
-      "brown" => "#DB9500",
-      "gray" => "#C1C1C1",
-      "green" => "#08D115",
-      "pink" => "#FF5BEB",
-      "purple" => "#AF16FC",
-      "red" => "#F91616",
-      "white" => "#FFFFFF",
-      "yellow" => "#F2E604"
-    }
+    "black" => "#000000",
+    "blue" => "#3A93FF",
+    "brown" => "#DB9500",
+    "gray" => "#C1C1C1",
+    "green" => "#08D115",
+    "pink" => "#FF5BEB",
+    "purple" => "#AF16FC",
+    "red" => "#F91616",
+    "white" => "#FFFFFF",
+    "yellow" => "#F2E604"
+  }
 
   defp pokeapi_endpoint(query) do
     "https://pokeapi.co/api/v2/pokemon/#{query}"
@@ -22,26 +22,48 @@ defmodule FamilyForeverPhoenixWeb.Services.PokemonService do
 
   defp return_data(%{status_code: 200, body: %{"species" => %{"url" => species_url}} = response}) do
     FetcherService.get(species_url)
-      |> return_data
-      |> Map.merge(response)
+    |> return_data
+    |> Map.merge(response)
+
+    # with {:ok, data} <- func(),
+    #      {:ok, data2} <- func2(data) do
+    #        data2
+    #  else
+    #    {:error, msg} -> msg
+    #  end
   end
 
   defp return_data(%{status_code: 200, body: body}), do: body
 
   defp stringify_types(types) do
-    Enum.reduce(types, [], &([String.capitalize(&1["type"]["name"]) | &2]))
-      |> Enum.reverse
-      |> Enum.join("/")
+    Enum.reduce(types, [], &[String.capitalize(&1["type"]["name"]) | &2])
+    |> Enum.reverse()
+    |> Enum.join("/")
   end
 
-  defp latest_flavor_text([%{"language" => %{"name" => name}, "flavor_text" => flavor_text} | _tail], lang_name)
-    when name == lang_name, do: flavor_text
+  defp latest_flavor_text(
+         [%{"language" => %{"name" => name}, "flavor_text" => flavor_text} | _tail],
+         lang_name
+       )
+       when name == lang_name,
+       do: flavor_text
 
   defp latest_flavor_text([_head | tail], lang_name) do
     latest_flavor_text(tail, lang_name)
   end
 
+  # defstruct [:name, :types, :flavor_text_entries]
+  #
+  # def get_name(%PokemonService{name: name}) do
+  #   name
+  # end
+
   def format_response(raw_response) do
+    #     data = %__MODULE__{
+    # name: String.capitalize(raw_response["name"])
+    #     }
+    # %{name: name, __struct__: __MODULE__} = data
+    #
     # [name, types, flavor_text, color, height, weight, front, back]
     [
       String.capitalize(raw_response["name"]),
@@ -57,7 +79,7 @@ defmodule FamilyForeverPhoenixWeb.Services.PokemonService do
 
   def call(query) do
     FetcherService.get(pokeapi_endpoint(query))
-      |> return_data
+    |> return_data
   end
 end
 

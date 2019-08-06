@@ -16,3 +16,5 @@ config :family_forever_phoenix, FamilyForeverPhoenixWeb.Endpoint,
 
 # Print only warnings and errors during test
 config :logger, level: :warn
+
+config :family_forever_phoenix, :fetcher, FamilyForeverPhoenixWeb.Services.FetcherServiceMock

@@ -46,7 +46,8 @@ defmodule FamilyForeverPhoenix.MixProject do
       {:tzdata, "~> 1.0.0"},
       {:calendar, "~> 0.17.5"},
       {:httpoison, "~> 1.5"},
-      {:poison, "~> 3.1"}
+      {:poison, "~> 3.1"},
+      {:mox, "~> 0.5", only: :test}
     ]
   end
 
