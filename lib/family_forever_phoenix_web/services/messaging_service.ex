@@ -3,7 +3,7 @@ defmodule FamilyForeverPhoenixWeb.Services.MessagingService do
     greeting = case now.hour do
       n when n >= 4 and n < 11 -> "morning"
       n when n >= 11 and n < 17 -> "afternoon"
-      n when n >= 17 and n < 4 -> "evening"
+      _ -> "evening"
     end
     "Well, good #{greeting}, #{if user_id == "Deary", do: user_id, else: "<@#{user_id}>" }!"
   end
